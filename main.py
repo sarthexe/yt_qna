@@ -9,7 +9,7 @@ from langchain_core.runnables import RunnableParallel,RunnableBranch,RunnableLam
 from langchain_core.output_parsers import StrOutputParser
 
 
-os.environ['OPENAI_API_KEY']="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"
+
 
 
 def extract_youtube_id(url):
