@@ -7,7 +7,7 @@ import re
 import os
 from langchain_core.runnables import RunnableParallel,RunnableBranch,RunnableLambda,RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
-
+import openai
 
 
 
@@ -26,8 +26,10 @@ def extract_youtube_id(url):
     else:
         return None
     
-def answer_question(video_url:str ,question:str)->str:
+def answer_question(api_key:str, video_url:str ,question:str)->str:
     
+    os.environ['OPENAI_API_KEY']=api_key
+
     #data ingestion
 
     video_id = extract_youtube_id(url=video_url)
@@ -90,12 +92,13 @@ def answer_question(video_url:str ,question:str)->str:
 
 import gradio as gr
 
-def rag_youtube_qa(video_url, question):
-    return answer_question(video_url, question)
+def rag_youtube_qa(api_key,video_url, question):
+    return answer_question(api_key,video_url, question)
 
 demo = gr.Interface(
     fn=rag_youtube_qa,
     inputs=[
+        gr.Textbox(label="🔑 OpenAI API Key", type="password", placeholder="sk-...", show_label=True),
         gr.Textbox(label="YouTube Video URL"),
         gr.Textbox(label="Your Question")
     ],
