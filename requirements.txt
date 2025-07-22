@@ -5,3 +5,6 @@ faiss-cpu
 tiktoken
 python-dotenv
 gradio
+fastapi
+uvicorn[standard]
+pydantic
